@@ -110,11 +110,14 @@ class ClassVisitor(ast.NodeVisitor):
             '__aexit__',
         }
 
-    def visit_FunctionDef(self, node: ast.ClassDef) -> None:
+    def visit_FunctionDef(self, node: ast.FunctionDef) -> None:
         """Visit by classes."""
         if node.name.startswith('_') and node.name not in self._dunder_methods:
             self.problems.append((node.lineno, node.col_offset))
         self.generic_visit(node)
+
+    def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef) -> None:
+        self.visit_FunctionDef(node)
 
 
 @final

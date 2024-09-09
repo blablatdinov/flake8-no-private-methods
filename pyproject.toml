@@ -24,7 +24,7 @@ python = "^3.9"
 flake8 = ">=5.0.0"
 
 [tool.poetry.plugins."flake8.extension"]
-NPM = "flake8_no_private.plugin:Plugin"
+NPM = "flake8_no_private_methods.plugin:Plugin"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "1.11.0"

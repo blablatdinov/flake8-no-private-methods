@@ -32,7 +32,7 @@ except ImportError:
 
 import pytest
 
-from flake8_no_private.plugin import Plugin
+from flake8_no_private_methods.plugin import Plugin
 
 _PLUGIN_RUN_T: TypeAlias = Callable[
     [str], list[tuple[int, int, str]],
@@ -56,33 +56,35 @@ def plugin_run() -> _PLUGIN_RUN_T:
     return _plugin_run
 
 
-def test_valid(plugin_run: _PLUGIN_RUN_T) -> None:
+@pytest.mark.parametrize('definition', [
+    'def move(self, to_x: int, to_y: int):'
+    'async def move(self, to_x: int, to_y: int):'
+])
+def test_valid(definition, plugin_run: _PLUGIN_RUN_T) -> None:
     """Test valid case."""
     got = plugin_run('\n'.join([
         'class Animal(object):',
         '',
-        '    def move(self, to_x: int, to_y: int):',
+        '    {0}'.format(definition),
         '        # Some logic for change coordinates',
         '        pass',
-        '',
-        '    def sound(self):',
-        '        print("Abstract animal sound")',
-        '',
     ]))
 
     assert not got
 
 
 @pytest.mark.parametrize('method_name', [
-    '_move',
-    '__move',
+    'def _move',
+    'def __move',
+    'async def _move',
+    'async def __move',
 ])
 def test_invalid(method_name: str, plugin_run: _PLUGIN_RUN_T) -> None:
     """Test valid case."""
     got = plugin_run('\n'.join([
         'class Animal(object):',
         '',
-        '    def {0}(self, to_x: int, to_y: int):'.format(method_name),
+        '    {0}(self, to_x: int, to_y: int):'.format(method_name),
         '        # Some logic for change coordinates',
         '        pass',
         '',
