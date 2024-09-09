@@ -39,7 +39,7 @@ jobs:
         with:
           python-version: ${{ matrix.python_version }}
       - name: Install Poetry
-        uses: snok/install-poetry@v1.3.4
+        uses: snok/install-poetry@v1.4.1
         with:
           virtualenvs-create: true
           virtualenvs-in-project: true
@@ -69,7 +69,7 @@ jobs:
         uses: JRubics/poetry-publish@v2.0
         with:
           pypi_token: ${{ secrets.PYPI_API_TOKEN }}
-      - uses: peter-evans/create-pull-request@v6
+      - uses: peter-evans/create-pull-request@v7
         with:
           branch: version-up
           commit-message: 'new version in pyproject.toml'
