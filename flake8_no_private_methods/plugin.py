@@ -24,7 +24,17 @@
 
 import ast
 from collections.abc import Generator
-from typing import final
+from typing import Union, final
+
+
+def node_problems(
+    node: Union[ast.FunctionDef, ast.AsyncFunctionDef],
+    dunder_methods: set[str],
+) -> list[tuple[int, int]]:
+    problems = []
+    if node.name.startswith('_') and node.name not in dunder_methods:
+        problems.append((node.lineno, node.col_offset))
+    return problems
 
 
 @final
@@ -112,12 +122,12 @@ class ClassVisitor(ast.NodeVisitor):
 
     def visit_FunctionDef(self, node: ast.FunctionDef) -> None:
         """Visit by classes."""
-        if node.name.startswith('_') and node.name not in self._dunder_methods:
-            self.problems.append((node.lineno, node.col_offset))
+        self.problems.extend(node_problems(node, self._dunder_methods))
         self.generic_visit(node)
 
     def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef) -> None:
-        self.visit_FunctionDef(node)
+        self.problems.extend(node_problems(node, self._dunder_methods))
+        self.generic_visit(node)
 
 
 @final
