@@ -57,10 +57,10 @@ def plugin_run() -> _PLUGIN_RUN_T:
 
 
 @pytest.mark.parametrize('definition', [
-    'def move(self, to_x: int, to_y: int):'
-    'async def move(self, to_x: int, to_y: int):'
+    'def move(self, to_x: int, to_y: int):',
+    'async def move(self, to_x: int, to_y: int):',
 ])
-def test_valid(definition, plugin_run: _PLUGIN_RUN_T) -> None:
+def test_valid(definition: str, plugin_run: _PLUGIN_RUN_T) -> None:
     """Test valid case."""
     got = plugin_run('\n'.join([
         'class Animal(object):',
@@ -174,7 +174,7 @@ def test_invalid(method_name: str, plugin_run: _PLUGIN_RUN_T) -> None:
     '__aenter__',
     '__aexit__',
 ])
-def test_valid(plugin_run: _PLUGIN_RUN_T, dunder_method) -> None:
+def test_dunder_methods(plugin_run: _PLUGIN_RUN_T, dunder_method: str) -> None:
     """Test valid case."""
     got = plugin_run('\n'.join([
         'class Animal(object):',
