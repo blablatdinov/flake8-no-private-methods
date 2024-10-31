@@ -1,6 +1,6 @@
 # flake8-no-private-methods
 
-[![test](https://github.com/blablatdinov/flake8-no-private-methods/actions/workflows/test.yml/badge.svg)](https://github.com/blablatdinov/flake8-no-private-methods/actions/workflows/test.yml)
+[![test](https://github.com/blablatdinov/flake8-no-private-methods/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/blablatdinov/flake8-no-private-methods/actions/workflows/test.yml)
 [![Python Version](https://img.shields.io/pypi/pyversions/flake8-no-private-methods.svg)](https://pypi.org/project/flake8-no-private-methods/)
 
 `flake8-no-private-methods` is a Flake8 plugin designed to enforce a coding standard where every method in a class must have the @override decorator. This ensures that all public methods implement their counterparts from an interface, promoting better design practices, easier mocking in unit tests, and simpler extension via decoration.
