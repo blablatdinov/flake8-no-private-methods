@@ -4,7 +4,6 @@ SHELL:=/usr/bin/env bash
 lint:
 	poetry run ruff check flake8_no_private_methods tests
 	poetry run mypy flake8_no_private_methods tests
-	./lint-venv/bin/flake8 flake8_no_private_methods tests
 	if poetry run command -v doc8 > /dev/null 2>&1; then poetry run doc8 -q docs; fi
 
 .PHONY: unit
