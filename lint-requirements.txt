@@ -19,53 +19,17 @@
 # DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 # OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 # OR OTHER DEALINGS IN THE SOFTWARE.
+attrs==24.3.0
+    # via wemake-python-styleguide
+flake8==7.1.1
+    # via wemake-python-styleguide
+mccabe==0.7.0
+    # via flake8
+pycodestyle==2.12.1
+    # via flake8
+pyflakes==3.2.0
+    # via flake8
+pygments==2.19.1
+    # via wemake-python-styleguide
+wemake-python-styleguide==1.0.0
 
-name: test
-
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-  workflow_dispatch:
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
-  cancel-in-progress: true
-
-permissions:
-  contents: read
-
-jobs:
-
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ['3.9', '3.12']
-
-    steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-
-    - name: Install poetry
-      run: |
-        curl -sSL "https://install.python-poetry.org" | python
-
-        # Adding `poetry` to `$PATH`:
-        echo "$HOME/.poetry/bin" >> $GITHUB_PATH
-
-    - name: Install dependencies
-      run: |
-        poetry config virtualenvs.in-project true
-        poetry run pip install -U pip
-        poetry install
-        python3 -m venv lint-venv
-        lint-venv/bin/pip install -r lint-requirements.txt
-
-    - name: Run checks
-      run: make test
