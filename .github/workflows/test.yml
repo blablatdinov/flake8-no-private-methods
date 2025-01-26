@@ -37,6 +37,7 @@ permissions:
   contents: read
 
 jobs:
+
   build:
     runs-on: ubuntu-latest
     strategy:
@@ -63,12 +64,22 @@ jobs:
         poetry config virtualenvs.in-project true
         poetry run pip install -U pip
         poetry install
+        python3 -m venv lint-venv
 
     - name: Run checks
       run: make test
-
-    # Upload coverage to codecov: https://codecov.io/
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v5
+  
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v5
       with:
-        file: ./coverage.xml
+        python-version: '3.12'
+    - name: Install dependencies
+      run: |
+        python3 -m venv lint-venv
+        lint-venv/bin/pip install -r lint-requirements.txt
+    - name: Lint via wps
+      run: lint-venv/bin/flake8 flake8_no_private_methods tests
