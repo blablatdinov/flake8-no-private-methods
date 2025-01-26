@@ -65,7 +65,21 @@ jobs:
         poetry run pip install -U pip
         poetry install
         python3 -m venv lint-venv
-        lint-venv/bin/pip install -r lint-requirements.txt
 
     - name: Run checks
       run: make test
+  
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: Install dependencies
+      run: |
+        python3 -m venv lint-venv
+        lint-venv/bin/pip install -r lint-requirements.txt
+    - name: Lint via wps
+      run: lint-venv/bin/flake8 flake8_no_private_methods tests
