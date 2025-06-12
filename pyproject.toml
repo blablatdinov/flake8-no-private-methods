@@ -30,7 +30,7 @@ NPM = "flake8_no_private_methods.plugin:Plugin"
 mypy = "1.16.0"
 ruff = "0.11.13"
 pytest = "8.4.0"
-pytest-cov = "6.2.0"
+pytest-cov = "6.2.1"
 pytest-randomly = "3.16.0"
 astpretty = "3.0.0"
 
