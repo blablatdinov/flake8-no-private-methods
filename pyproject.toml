@@ -28,7 +28,7 @@ NPM = "flake8_no_private_methods.plugin:Plugin"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "1.19.0"
-ruff = "0.14.6"
+ruff = "0.14.7"
 pytest = "8.4.2"
 pytest-cov = "7.0.0"
 pytest-randomly = "4.0.1"
