@@ -45,8 +45,8 @@ def test_dependency_versions(version: tuple[str]) -> None:
     )
 
     assert got.stdout.decode('utf-8').strip().splitlines() == [
-       'file.py:29:5: NPM100 private methods forbidden',
-       'file.py:33:5: NPM100 private methods forbidden',
+       'file.py:10:5: NPM100 private methods forbidden',
+       'file.py:14:5: NPM100 private methods forbidden',
     ]
     assert got.returncode == 1
 
@@ -62,6 +62,6 @@ def test() -> None:
 
     assert got.returncode == 1
     assert got.stdout.decode('utf-8').strip().splitlines() == [
-       'file.py:29:5: NPM100 private methods forbidden',
-       'file.py:33:5: NPM100 private methods forbidden',
+       'file.py:10:5: NPM100 private methods forbidden',
+       'file.py:14:5: NPM100 private methods forbidden',
     ]
