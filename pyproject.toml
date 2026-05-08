@@ -20,18 +20,18 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 flake8 = ">=5.0.0"
 
 [tool.poetry.plugins."flake8.extension"]
 NPM = "flake8_no_private_methods.plugin:Plugin"
 
 [tool.poetry.group.dev.dependencies]
-mypy = "1.19.1"
-ruff = "0.14.13"
-pytest = "8.4.2"
-pytest-cov = "7.0.0"
-pytest-randomly = "4.0.1"
+mypy = "2.0.0"
+ruff = "0.15.12"
+pytest = "9.0.3"
+pytest-cov = "7.1.0"
+pytest-randomly = "4.1.0"
 astpretty = "3.0.0"
 
 [build-system]
