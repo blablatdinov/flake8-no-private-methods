@@ -81,6 +81,7 @@ def test_invalid(method_name: str, plugin_run: _PLUGIN_RUN_T) -> None:
 
 
 @pytest.mark.parametrize('dunder_method', [
+    # curl https://docs.python.org/3/reference/datamodel.html#special-method-names | rg '__\w+__' -o | sort | uniq
     '__abs__',
     '__add__',
     '__aenter__',

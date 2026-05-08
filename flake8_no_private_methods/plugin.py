@@ -26,6 +26,7 @@ class ClassVisitor(ast.NodeVisitor):
         """Ctor."""
         self.problems: list[tuple[int, int]] = []
         self._dunder_methods = {
+            # curl https://docs.python.org/3/reference/datamodel.html#special-method-names | rg '__\w+__' -o | sort | uniq
             '__abs__',
             '__add__',
             '__aenter__',
