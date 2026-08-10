@@ -5,11 +5,11 @@
 
 import ast
 from collections.abc import Generator
-from typing import Union, final
+from typing import final
 
 
 def node_problems(
-    node: Union[ast.FunctionDef, ast.AsyncFunctionDef],
+    node: ast.FunctionDef | ast.AsyncFunctionDef,
     dunder_methods: set[str],
 ) -> list[tuple[int, int]]:
     problems = []

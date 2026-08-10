@@ -58,9 +58,19 @@ jobs:
       uses: actions/setup-python@v7
       with:
         python-version: '3.14'
+    - name: Install poetry
+      run: |
+        curl -sSL "https://install.python-poetry.org" | python
+        echo "$HOME/.poetry/bin" >> $GITHUB_PATH
     - name: Install dependencies
       run: |
+        poetry config virtualenvs.in-project true
+        poetry install
         python3 -m venv lint-venv
         lint-venv/bin/pip install -r lint-requirements.txt
+    - name: Lint via ruff
+      run: poetry run ruff check flake8_no_private_methods tests
     - name: Lint via wps
       run: lint-venv/bin/flake8 flake8_no_private_methods tests
+    - name: Lint via mypy
+      run: poetry run mypy flake8_no_private_methods tests

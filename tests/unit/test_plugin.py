@@ -4,12 +4,12 @@
 # flake8: noqa: WPS433
 
 import ast
-from typing import Callable
+from collections.abc import Callable
 
 try:
     from typing import TypeAlias  # type: ignore [attr-defined, unused-ignore]
 except ImportError:
-    from typing_extensions import TypeAlias  # noqa: WPS440
+    from typing import TypeAlias  # noqa: WPS440
 
 import pytest
 
