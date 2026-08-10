@@ -73,4 +73,4 @@ jobs:
     - name: Lint via wps
       run: lint-venv/bin/flake8 flake8_no_private_methods tests
     - name: Lint via mypy
-      run: poetry run ruff mypy flake8_no_private_methods tests
+      run: poetry run mypy flake8_no_private_methods tests
